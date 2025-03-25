@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Vehicle Memory Mansion</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Trajan Pro', 'Times New Roman', serif;
+            background-color: #000;
+            color: #d4af37;
+        }
+        
+        #scene-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #loading-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1s ease;
+        }
+        
+        #loading-bar-container {
+            width: 50%;
+            height: 10px;
+            background-color: #333;
+            border: 2px solid #d4af37;
+            margin-top: 20px;
+        }
+        
+        #loading-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #d4af37;
+            transition: width 0.3s ease;
+        }
+        
+        #loading-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        #loading-subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.7;
+        }
+        
+        #dialogue-box {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #d4af37;
+            padding: 20px;
+            color: #fff;
+            display: none;
+            z-index: 10;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        #dialogue-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        #dialogue-content {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        #close-dialogue {
+            background-color: #d4af37;
+            color: #000;
+            border: none;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            float: right;
+        }
+        
+        #location-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #d4af37;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-left: 3px solid #d4af37;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            z-index: 5;
+        }
+        
+        .codex-style {
+            background-image: url('assets/textures/parchment.jpg');
+            background-color: rgba(245, 240, 224, 0.95);
+            color: #8b4513;
+            border-color: #8b4513;
+        }
+        
+        .codex-style #dialogue-title {
+            color: #8b4513;
+            font-family: 'Trajan Pro', serif;
+            text-align: center;
+            border-bottom: 1px solid #8b4513;
+            padding-bottom: 10px;
+        }
+        
+        .codex-category {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #a67c52;
+        }
+        
+        .codex-content {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+        }
+        
+        .codex-footer {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            border-top: 1px solid #a67c52;
+            padding-top: 10px;
+        }
+        
+        .codex-icon {
+            margin-right: 10px;
+        }
+        
+        .codex-tip {
+            font-style: italic;
+            font-size: 14px;
+            color: #a67c52;
+        }
+        
+        .tutorial-style {
+            background-color: rgba(0, 0, 0, 0.9);
+            border-color: #00a8ff;
+        }
+        
+        .tutorial-style #dialogue-title {
+            color: #00a8ff;
+            text-align: center;
+        }
+        
+        .tutorial-steps {
+            padding-left: 20px;
+        }
+        
+        .tutorial-steps li {
+            margin-bottom: 10px;
+        }
+        
+        .tutorial-footer {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            border-top: 1px solid #00a8ff;
+            padding-top: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div id="scene-container"></div>
+    
+    <div id="loading-screen">
+        <div id="loading-title">Investment Vehicle Memory Mansion</div>
+        <div id="loading-subtitle">Exploring Investment Knowledge Through Spatial Memory</div>
+        <div id="loading-bar-container">
+            <div id="loading-bar"></div>
+        </div>
+    </div>
+    
+    <div id="dialogue-box">
+        <div id="dialogue-title">Title</div>
+        <div id="dialogue-content">Content</div>
+        <button id="close-dialogue">Close</button>
+    </div>
+    
+    <div id="location-indicator">Location: Foyer</div>
+    
+    <!-- Load texture and sound generators -->
+    <script src="assets/textures/texture-generator.js"></script>
+    <script src="assets/sounds/sound-generator.js"></script>
+    
+    <!-- Load main application script -->
+    <script type="module" src="assets/index-hRefl8JD.js"></script>
+</body>
+</html>

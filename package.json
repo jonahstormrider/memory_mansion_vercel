@@ -1,0 +1,20 @@
+{
+  "name": "memory-mansion-vercel",
+  "version": "1.0.0",
+  "main": "api/server.js",
+  "scripts": {
+    "start": "node api/server.js",
+    "dev": "node api/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["memory", "mansion", "3D", "investment", "vehicles", "three.js"],
+  "author": "",
+  "license": "ISC",
+  "description": "Interactive 3D Memory Mansion for Investment Vehicles with Assassin's Creed styling",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
